@@ -1,6 +1,9 @@
 body {
     font-family: 'Comic Neue', cursive, sans-serif;
-    background-color: #E0F7FA; /* Light Blue */
+    background-color: #FFF8E1; /* Light Cream Yellow */
+    background-image: radial-gradient(#FFECB3 20%, transparent 20%), radial-gradient(#FFECB3 20%, transparent 20%);
+    background-position: 0 0, 50px 50px;
+    background-size: 100px 100px;
     margin: 0;
     padding: 0;
     color: #333;
@@ -14,36 +17,39 @@ body {
 }
 
 header {
-    background-color: #FFCA28; /* Amber */
+    background: linear-gradient(135deg, #FF6F00, #FFCA28); /* Vibrant Orange/Amber Gradient */
     padding: 20px;
-    border-bottom: 5px solid #FF6F00;
-    border-radius: 0 0 20px 20px;
+    border-bottom: none;
+    border-radius: 0 0 30px 30px;
+    box-shadow: 0 10px 0 rgba(0,0,0,0.1);
 }
 
 h1 {
     margin: 0;
-    color: #D84315;
+    color: #FFF;
     font-size: 3em;
-    text-shadow: 2px 2px #FFF;
+    text-shadow: 3px 3px 0 #BF360C;
 }
 
 .content-section {
     background: white;
-    border-radius: 20px;
+    border-radius: 25px;
     padding: 20px;
     margin-bottom: 30px;
-    box-shadow: 0 8px 0 #B2EBF2;
-    border: 2px solid #4DD0E1;
+    box-shadow: 8px 8px 0 #4DD0E1;
+    border: 3px solid #00BCD4;
 }
 
 .intro-card {
-    background-color: #FFF9C4; /* Light Yellow */
-    border-color: #FBC02D;
-    box-shadow: 0 8px 0 #F9A825;
+    background-color: #FFFDE7; /* Very Light Yellow */
+    border-color: #FFEB3B;
+    box-shadow: 8px 8px 0 #FBC02D;
 }
 
 h2, h3 {
-    color: #0097A7;
+    color: #00838F;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* Game Board */
@@ -66,9 +72,11 @@ h2, h3 {
     background: #FFF;
     padding: 10px;
     border-radius: 50%;
-    border: 3px solid #DDD;
+    border: 4px solid #FF4081;
+    background-color: #F8BBD0;
     user-select: none;
     transition: transform 0.2s;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
 }
 
 .draggable-item:active {
@@ -85,7 +93,7 @@ h2, h3 {
 .drop-box {
     width: 45%;
     height: 200px;
-    border-radius: 20px;
+    border-radius: 30px;
     border: 4px dashed #AAA;
     background-color: #FAFAFA;
     display: flex;
@@ -93,13 +101,14 @@ h2, h3 {
     align-items: center;
     justify-content: flex-start;
     padding: 10px;
+    transition: transform 0.2s;
 }
 
-.animal-box { background-color: #DCEDC8; border-color: #8BC34A; }
-.object-box { background-color: #FFCCBC; border-color: #FF5722; }
+.animal-box { background-color: #F1F8E9; border-color: #7CB342; }
+.object-box { background-color: #E3F2FD; border-color: #039BE5; }
 
 .action-btn {
-    background-color: #7E57C2;
+    background-color: #6200EA;
     color: white;
     font-family: 'Comic Neue', cursive;
     font-size: 1.5rem;
@@ -108,7 +117,7 @@ h2, h3 {
     border-radius: 50px;
     cursor: pointer;
     margin-top: 20px;
-    box-shadow: 0 5px 0 #512DA8;
+    box-shadow: 0 6px 0 #311B92;
     transition: transform 0.1s;
 }
 
@@ -117,7 +126,7 @@ h2, h3 {
 /* Modal */
 .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; }
 .hidden { display: none; }
-.modal-content { background: white; padding: 30px; border-radius: 20px; text-align: center; max-width: 400px; border: 5px solid #FFCA28; }
+.modal-content { background: white; padding: 30px; border-radius: 30px; text-align: center; max-width: 400px; border: 6px solid #FFCA28; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
 .explanation { font-size: 0.9rem; color: #666; background: #EEE; padding: 10px; border-radius: 10px; margin-top: 10px; }
 
 /* Animation for AI turn */
