@@ -1,17 +1,17 @@
 const items = [
-    { id: 'dog', text: '🐶', type: 'animal' },
-    { id: 'cat', text: '🐱', type: 'animal' },
-    { id: 'frog', text: '🐸', type: 'animal' },
-    { id: 'car', text: '🚗', type: 'object' },
-    { id: 'ball', text: '⚽', type: 'object' },
-    { id: 'guitar', text: '🎸', type: 'object' }
+    { id: 'dog', image: 'dog.png', type: 'animal' },
+    { id: 'cat', image: 'cat.png', type: 'animal' },
+    { id: 'frog', image: 'frog.png', type: 'animal' },
+    { id: 'car', image: 'car.png', type: 'object' },
+    { id: 'ball', image: 'ball.png', type: 'object' },
+    { id: 'guitar', image: 'guitar.png', type: 'object' }
 ];
 
 const testItems = [
-    { id: 'lion', text: '🦁', type: 'animal' },
-    { id: 'toaster', text: '🍞', type: 'object' },
-    { id: 'bull', text: '🐂', type: 'animal' },
-    { id: 'pen', text: '🖊️', type: 'object' }
+    { id: 'lion', image: 'lion.png', type: 'animal' },
+    { id: 'toaster', image: 'toaster.png', type: 'object' },
+    { id: 'bull', image: 'bull.png', type: 'animal' },
+    { id: 'pen', image: 'pen.png', type: 'object' }
 ];
 
 let placedItems = {};
@@ -20,19 +20,22 @@ let placedItems = {};
 window.onload = function() {
     const container = document.getElementById('source-container');
     items.forEach(item => {
-        const el = document.createElement('div');
-        el.innerText = item.text;
+        const el = document.createElement('img');
+        el.src = item.image;
         el.className = 'draggable-item';
         el.id = item.id;
         el.draggable = true;
         el.ondragstart = drag;
 
-        // Styling for text-based items to ensure proper alignment and smooth drag
-        el.style.fontSize = '40px';
+        // Styling for images: shrink size and add frame
+        el.style.width = '80px';
+        el.style.height = '80px';
+        el.style.objectFit = 'cover';
+        el.style.border = '2px solid #333';
+        el.style.borderRadius = '10px';
         el.style.cursor = 'grab';
         el.style.display = 'inline-block';
         el.style.margin = '10px';
-        el.style.userSelect = 'none';
 
         container.appendChild(el);
     });
@@ -126,13 +129,17 @@ function simulateAIDrop(isCorrect) {
     });
     
     testItems.forEach(item => {
-        const el = document.createElement('div');
-        el.innerText = item.text;
+        const el = document.createElement('img');
+        el.src = item.image;
         el.className = 'draggable-item';
         el.style.animation = "popIn 0.5s";
 
-        // Styling for text-based items
-        el.style.fontSize = '40px';
+        // Styling for images
+        el.style.width = '80px';
+        el.style.height = '80px';
+        el.style.objectFit = 'cover';
+        el.style.border = '2px solid #333';
+        el.style.borderRadius = '10px';
         el.style.display = 'inline-block';
         el.style.margin = '10px';
         
