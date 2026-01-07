@@ -1,131 +1,136 @@
-const items = [
-    { id: 'dog', emoji: '🐶', type: 'animal' },
-    { id: 'cat', emoji: '🐱', type: 'animal' },
-    { id: 'frog', emoji: '🐸', type: 'animal' },
-    { id: 'car', emoji: '🚗', type: 'object' },
-    { id: 'ball', emoji: '⚽', type: 'object' },
-    { id: 'guitar', emoji: '🎸', type: 'object' }
-];
-
-const testItems = [
-    { id: 'lion', emoji: '🦁', type: 'animal' },
-    { id: 'toaster', emoji: '🍞', type: 'object' }
-];
-
-let placedItems = {};
-
-// Initialize Game
-window.onload = function() {
-    const container = document.getElementById('source-container');
-    items.forEach(item => {
-        const el = document.createElement('div');
-        el.className = 'draggable-item';
-        el.innerText = item.emoji;
-        el.id = item.id;
-        el.draggable = true;
-        el.ondragstart = drag;
-        container.appendChild(el);
-    });
-};
-
-function allowDrop(ev) {
-    ev.preventDefault();
+body {
+    font-family: 'Comic Neue', cursive, sans-serif;
+    background-color: #FFF8E1; /* Light Cream Yellow */
+    background-image: radial-gradient(#FFECB3 20%, transparent 20%), radial-gradient(#FFECB3 20%, transparent 20%);
+    background-position: 0 0, 50px 50px;
+    background-size: 100px 100px;
+    margin: 0;
+    padding: 0;
+    color: #333;
 }
 
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
 }
 
-function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    var draggedElement = document.getElementById(data);
-    
-    // Ensure we drop into the box, not on top of another child element
-    let target = ev.target;
-    if (!target.classList.contains('drop-box')) {
-        target = target.closest('.drop-box');
-    }
-    
-    if (target) {
-        target.appendChild(draggedElement);
-        // Record where the child put the item
-        const boxType = target.id === 'box-animal' ? 'animal' : 'object';
-        placedItems[data] = boxType;
-    }
+header {
+    background: linear-gradient(135deg, #FF6F00, #FFCA28); /* Vibrant Orange/Amber Gradient */
+    padding: 20px;
+    border-bottom: none;
+    border-radius: 0 0 30px 30px;
+    box-shadow: 0 10px 0 rgba(0,0,0,0.1);
 }
 
-function startAIRound() {
-    // 1. Check if all items are placed
-    if (Object.keys(placedItems).length < items.length) {
-        alert("Please drag all pictures to the boxes first!");
-        return;
-    }
-
-    // 2. Analyze Child's Teaching (Did they make mistakes?)
-    let childMistakes = 0;
-    items.forEach(item => {
-        if (placedItems[item.id] !== item.type) {
-            childMistakes++;
-        }
-    });
-
-    // 3. AI Simulation
-    // If child made mistakes, AI learns the "wrong" pattern (Garbage In, Garbage Out)
-    // If child was perfect, AI is perfect.
-    
-    const isCorrect = childMistakes === 0;
-
-    // Show simulation first (Cinematic view)
-    simulateAIDrop(isCorrect);
-
-    // Wait 5 seconds then show popup
-    setTimeout(() => {
-        const modal = document.getElementById('result-modal');
-        const title = document.getElementById('modal-title');
-        const msg = document.getElementById('modal-message');
-        const exp = document.getElementById('modal-explanation');
-
-        modal.classList.remove('hidden');
-
-        if (isCorrect) {
-            // Success Scenario
-            title.innerText = "Yay! You mentored the AI properly! 🎉";
-            msg.innerText = "Gemini looked at your examples and correctly sorted the next items (Lion and Toaster)!";
-            exp.innerText = "Explanation: Computers learn from data. Because you gave it 'Clean Data' (correct answers), the AI became smart!";
-        } else {
-            // Failure Scenario
-            title.innerText = "Good try! AI is still learning. 🤖";
-            msg.innerText = "It looks like Gemini got a bit confused. That's okay! AI learns from the examples we give it.";
-            exp.innerText = "Explanation: If we put an item in the wrong box, the AI might think that's the correct rule. Let's try again to teach it perfectly!";
-        }
-    }, 5000);
+h1 {
+    margin: 0;
+    color: #FFF;
+    font-size: 3em;
+    text-shadow: 3px 3px 0 #BF360C;
 }
 
-function simulateAIDrop(isCorrect) {
-    // Clear board for AI demo
-    document.getElementById('source-container').innerHTML = "<strong>Gemini is playing now...</strong>";
+.content-section {
+    background: white;
+    border-radius: 25px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 8px 8px 0 #4DD0E1;
+    border: 3px solid #00BCD4;
+}
 
-    // Clear user placed items from boxes so AI can show its learning clearly
-    ['box-animal', 'box-object'].forEach(id => {
-        const box = document.getElementById(id);
-        const items = box.getElementsByClassName('draggable-item');
-        while(items.length > 0){
-            items[0].parentNode.removeChild(items[0]);
-        }
-    });
-    
-    testItems.forEach(item => {
-        const el = document.createElement('div');
-        el.className = 'draggable-item';
-        el.innerText = item.emoji;
-        el.style.animation = "popIn 0.5s";
-        
-        // Determine destination based on AI logic
-        let destId;
-        if (isCorrect) destId = item.type === 'animal' ? 'box-animal' : 'box-object';
-        else destId = item.type === 'animal' ? 'box-object' : 'box-animal'; // Deliberate error
+.intro-card {
+    background-color: #FFFDE7; /* Very Light Yellow */
+    border-color: #FFEB3B;
+    box-shadow: 8px 8px 0 #FBC02D;
+}
 
-        document.getElementById(destId).appendChild(el);
-    });
+h2, h3 {
+    color: #00838F;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Game Board */
+.game-board {
+    margin-top: 20px;
+}
+
+.source-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    min-height: 80px;
+    flex-wrap: wrap;
+}
+
+.draggable-item {
+    font-size: 3rem;
+    cursor: grab;
+    background: #FFF;
+    padding: 10px;
+    border-radius: 50%;
+    border: 4px solid #FF4081;
+    background-color: #F8BBD0;
+    user-select: none;
+    transition: transform 0.2s;
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.1);
+}
+
+.draggable-item:active {
+    cursor: grabbing;
+    transform: scale(1.2);
+}
+
+.drop-area {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.drop-box {
+    width: 45%;
+    height: 200px;
+    border-radius: 30px;
+    border: 4px dashed #AAA;
+    background-color: #FAFAFA;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 10px;
+    transition: transform 0.2s;
+}
+
+.animal-box { background-color: #F1F8E9; border-color: #7CB342; }
+.object-box { background-color: #E3F2FD; border-color: #039BE5; }
+
+.action-btn {
+    background-color: #6200EA;
+    color: white;
+    font-family: 'Comic Neue', cursive;
+    font-size: 1.5rem;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 20px;
+    box-shadow: 0 6px 0 #311B92;
+    transition: transform 0.1s;
+}
+
+.action-btn:active { transform: translateY(5px); box-shadow: none; }
+
+/* Modal */
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; }
+.hidden { display: none; }
+.modal-content { background: white; padding: 30px; border-radius: 30px; text-align: center; max-width: 400px; border: 6px solid #FFCA28; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+.explanation { font-size: 0.9rem; color: #666; background: #EEE; padding: 10px; border-radius: 10px; margin-top: 10px; }
+
+/* Animation for AI turn */
+@keyframes popIn {
+    0% { transform: scale(0); }
+    100% { transform: scale(1); }
 }
