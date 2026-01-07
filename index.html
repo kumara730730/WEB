@@ -3,48 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduYug - AI Education</title>
+    <title>EduYug - Fun with Gemini AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
     <header>
         <div class="container">
-            <h1>EduYug</h1>
+            <h1>EduYug & Gemini AI 🤖</h1>
         </div>
     </header>
 
     <main class="container">
-        <section class="content-section">
-            <h2>Topic: Lack of AI education in Primary school</h2>
+        <section class="content-section intro-card">
+            <h2>Hello Future Genius! 🌟</h2>
             <p class="context-text">
-                In an era defined by rapid technological advancement, Artificial Intelligence (AI) is reshaping industries, communication, and daily life. However, primary education curriculums often fail to introduce these critical concepts early enough. This gap leaves young students as passive consumers of technology rather than empowered creators. Without foundational AI literacy, we risk widening the digital divide and failing to prepare the next generation for a future where human-AI collaboration will be ubiquitous.
+                Welcome to <strong>EduYug</strong>! Today, you are going to be a teacher. 
+                We have a baby AI named <strong>Gemini</strong>. It doesn't know what animals are yet.
+                <br><br>
+                Can you teach it? If you teach it correctly, it will learn to do it all by itself!
             </p>
         </section>
 
-        <section class="content-section">
-            <h3>Solution: The Lecture</h3>
-            <div class="video-placeholder">
-                <div class="play-icon">▶</div>
-                <p>Lecture Video: Introduction to AI for Kids</p>
-                <p class="sub-text">(Video content to be uploaded)</p>
-            </div>
-        </section>
-
         <section class="content-section game-section">
-            <h3>Interactive Demo: Train the AI</h3>
-            <p>Play a simple matching game to generate data. The AI will learn from your choices and play the next round automatically!</p>
+            <h3>🎮 Drag and Drop Game</h3>
+            <p>Drag the pictures into the correct box. Teach Gemini carefully!</p>
             
-            <div id="game-container" class="game-board">
-                <div id="game-status">Ready to start?</div>
-                <div id="item-display" class="item-card">?</div>
-                <div class="controls">
-                    <button id="btn-living" class="game-btn" onclick="classifyItem('Living')">Living Thing</button>
-                    <button id="btn-object" class="game-btn" onclick="classifyItem('Object')">Object</button>
+            <div class="game-board">
+                <div class="source-container" id="source-container">
+                    <!-- Images will be injected here by JS -->
+                </div>
+
+                <div class="drop-area">
+                    <div class="drop-box animal-box" id="box-animal" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <h4>🐾 Animals</h4>
+                    </div>
+                    <div class="drop-box object-box" id="box-object" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <h4>🛑 Not Animals</h4>
+                    </div>
                 </div>
             </div>
+            
+            <button id="teach-btn" class="action-btn" onclick="startAIRound()">Teach Gemini!</button>
         </section>
     </main>
+
+    <!-- Popup Modal -->
+    <div id="result-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2 id="modal-title"></h2>
+            <p id="modal-message"></p>
+            <p id="modal-explanation" class="explanation"></p>
+            <button class="action-btn" onclick="location.reload()">Play Again</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
