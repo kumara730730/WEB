@@ -74,29 +74,32 @@ function startAIRound() {
     // If child made mistakes, AI learns the "wrong" pattern (Garbage In, Garbage Out)
     // If child was perfect, AI is perfect.
     
-    const modal = document.getElementById('result-modal');
-    const title = document.getElementById('modal-title');
-    const msg = document.getElementById('modal-message');
-    const exp = document.getElementById('modal-explanation');
+    const isCorrect = childMistakes === 0;
 
-    modal.classList.remove('hidden');
+    // Show simulation first (Cinematic view)
+    simulateAIDrop(isCorrect);
 
-    if (childMistakes === 0) {
-        // Success Scenario
-        title.innerText = "Yay! You mentored the AI properly! 🎉";
-        msg.innerText = "Gemini looked at your examples and correctly sorted the next items (Lion and Toaster)!";
-        exp.innerText = "Explanation: Computers learn from data. Because you gave it 'Clean Data' (correct answers), the AI became smart!";
-        
-        // Visualise AI doing it right (Optional animation logic could go here)
-        simulateAIDrop(true);
-    } else {
-        // Failure Scenario
-        title.innerText = "The computer did exactly what it was taught. 🤖";
-        msg.innerText = "Oops! You put some items in the wrong box, so Gemini got confused and made mistakes too.";
-        exp.innerText = "Explanation: This is called 'Garbage In, Garbage Out'. If the data you teach an AI is wrong, the AI will be wrong too. Try again!";
-        
-        simulateAIDrop(false);
-    }
+    // Wait 5 seconds then show popup
+    setTimeout(() => {
+        const modal = document.getElementById('result-modal');
+        const title = document.getElementById('modal-title');
+        const msg = document.getElementById('modal-message');
+        const exp = document.getElementById('modal-explanation');
+
+        modal.classList.remove('hidden');
+
+        if (isCorrect) {
+            // Success Scenario
+            title.innerText = "Yay! You mentored the AI properly! 🎉";
+            msg.innerText = "Gemini looked at your examples and correctly sorted the next items (Lion and Toaster)!";
+            exp.innerText = "Explanation: Computers learn from data. Because you gave it 'Clean Data' (correct answers), the AI became smart!";
+        } else {
+            // Failure Scenario
+            title.innerText = "The computer did exactly what it was taught. 🤖";
+            msg.innerText = "Oops! You put some items in the wrong box, so Gemini got confused and made mistakes too.";
+            exp.innerText = "Explanation: This is called 'Garbage In, Garbage Out'. If the data you teach an AI is wrong, the AI will be wrong too. Try again!";
+        }
+    }, 5000);
 }
 
 function simulateAIDrop(isCorrect) {
