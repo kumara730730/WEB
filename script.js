@@ -1,17 +1,17 @@
 const items = [
-    { id: 'dog', image: 'dog.png', type: 'animal' },
-    { id: 'cat', image: 'cat.png', type: 'animal' },
-    { id: 'frog', image: 'frog.png', type: 'animal' },
-    { id: 'car', image: 'car.png', type: 'object' },
-    { id: 'ball', image: 'ball.png', type: 'object' },
-    { id: 'guitar', image: 'guitar.png', type: 'object' }
+    { id: 'dog', text: '🐶', type: 'animal' },
+    { id: 'cat', text: '🐱', type: 'animal' },
+    { id: 'frog', text: '🐸', type: 'animal' },
+    { id: 'car', text: '🚗', type: 'object' },
+    { id: 'ball', text: '⚽', type: 'object' },
+    { id: 'guitar', text: '🎸', type: 'object' }
 ];
 
 const testItems = [
-    { id: 'lion', image: 'lion.png', type: 'animal' },
-    { id: 'toaster', image: 'toaster.png', type: 'object' },
-    { id: 'bull', image: 'bull.png', type: 'animal' },
-    { id: 'pen', image: 'pen.png', type: 'animal' }
+    { id: 'lion', text: '🦁', type: 'animal' },
+    { id: 'toaster', text: '🍞', type: 'object' },
+    { id: 'bull', text: '🐂', type: 'animal' },
+    { id: 'pen', text: '🖊️', type: 'object' }
 ];
 
 let placedItems = {};
@@ -20,12 +20,20 @@ let placedItems = {};
 window.onload = function() {
     const container = document.getElementById('source-container');
     items.forEach(item => {
-        const el = document.createElement('img');
-        el.src = item.image;
+        const el = document.createElement('div');
+        el.innerText = item.text;
         el.className = 'draggable-item';
         el.id = item.id;
         el.draggable = true;
         el.ondragstart = drag;
+
+        // Styling for text-based items to ensure proper alignment and smooth drag
+        el.style.fontSize = '40px';
+        el.style.cursor = 'grab';
+        el.style.display = 'inline-block';
+        el.style.margin = '10px';
+        el.style.userSelect = 'none';
+
         container.appendChild(el);
     });
 };
@@ -118,10 +126,15 @@ function simulateAIDrop(isCorrect) {
     });
     
     testItems.forEach(item => {
-        const el = document.createElement('img');
-        el.src = item.image;
+        const el = document.createElement('div');
+        el.innerText = item.text;
         el.className = 'draggable-item';
         el.style.animation = "popIn 0.5s";
+
+        // Styling for text-based items
+        el.style.fontSize = '40px';
+        el.style.display = 'inline-block';
+        el.style.margin = '10px';
         
         // Determine destination based on AI logic
         let destId;
