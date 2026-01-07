@@ -95,9 +95,9 @@ function startAIRound() {
             exp.innerText = "Explanation: Computers learn from data. Because you gave it 'Clean Data' (correct answers), the AI became smart!";
         } else {
             // Failure Scenario
-            title.innerText = "The computer did exactly what it was taught. 🤖";
-            msg.innerText = "Oops! You put some items in the wrong box, so Gemini got confused and made mistakes too.";
-            exp.innerText = "Explanation: This is called 'Garbage In, Garbage Out'. If the data you teach an AI is wrong, the AI will be wrong too. Try again!";
+            title.innerText = "Good try! AI is still learning. 🤖";
+            msg.innerText = "It looks like Gemini got a bit confused. That's okay! AI learns from the examples we give it.";
+            exp.innerText = "Explanation: If we put an item in the wrong box, the AI might think that's the correct rule. Let's try again to teach it perfectly!";
         }
     }, 5000);
 }
@@ -105,6 +105,15 @@ function startAIRound() {
 function simulateAIDrop(isCorrect) {
     // Clear board for AI demo
     document.getElementById('source-container').innerHTML = "<strong>Gemini is playing now...</strong>";
+
+    // Clear user placed items from boxes so AI can show its learning clearly
+    ['box-animal', 'box-object'].forEach(id => {
+        const box = document.getElementById(id);
+        const items = box.getElementsByClassName('draggable-item');
+        while(items.length > 0){
+            items[0].parentNode.removeChild(items[0]);
+        }
+    });
     
     testItems.forEach(item => {
         const el = document.createElement('div');
