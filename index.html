@@ -3,59 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EduYug - Fun with Gemini AI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <title>EduYug - AI Education</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #f4f7f6; color: #333; }
+        h1 { color: #2c3e50; text-align: center; }
+        h2 { color: #e67e22; }
+        .section { margin-bottom: 30px; background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        
+        /* Game Styles */
+        .game-area { display: flex; flex-direction: column; align-items: center; }
+        #source-container { display: flex; gap: 15px; margin-bottom: 20px; min-height: 70px; padding: 15px; background: #e0e0e0; border-radius: 8px; width: 100%; justify-content: center; flex-wrap: wrap; }
+        .drop-zone-container { display: flex; gap: 30px; justify-content: center; width: 100%; flex-wrap: wrap; }
+        .drop-box { width: 200px; min-height: 200px; border: 3px dashed #aaa; border-radius: 15px; display: flex; flex-wrap: wrap; align-content: flex-start; justify-content: center; padding: 10px; gap: 10px; background: #fff; transition: background-color 0.3s; }
+        .drop-box h3 { width: 100%; text-align: center; margin: 0 0 15px 0; font-size: 1.2em; pointer-events: none; color: #555; }
+        #box-animal { border-color: #ff9800; background-color: #fff3e0; }
+        #box-object { border-color: #2196f3; background-color: #e3f2fd; }
+        
+        .draggable-item { font-size: 2.5em; cursor: grab; user-select: none; padding: 5px; transition: transform 0.2s; }
+        .draggable-item:active { cursor: grabbing; transform: scale(1.1); }
+        
+        button { padding: 12px 30px; font-size: 1.2em; background-color: #4CAF50; color: white; border: none; border-radius: 25px; cursor: pointer; margin-top: 25px; box-shadow: 0 4px #388E3C; transition: all 0.1s; }
+        button:hover { background-color: #45a049; }
+        button:active { box-shadow: 0 2px #388E3C; transform: translateY(2px); }
+        
+        /* Modal */
+        .hidden { display: none !important; }
+        #result-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; padding: 40px; border-radius: 15px; text-align: center; max-width: 500px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        
+        video { width: 100%; max-width: 600px; border-radius: 10px; margin-top: 15px; display: block; }
+        
+        @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
+    </style>
 </head>
 <body>
 
-    <header>
-        <div class="container">
-            <h1>EduYug & Gemini AI 🤖</h1>
+    <div class="section">
+        <h1>EduYug</h1>
+    </div>
+
+    <div class="section">
+        <h2>Topic: Lack of AI education in Primary schools</h2>
+        <p>In today's rapidly evolving world, Artificial Intelligence is everywhere, yet many primary schools still focus solely on traditional subjects. Introducing AI concepts early helps children understand the technology shaping their future, fostering creativity and critical thinking rather than just consumption.</p>
+    </div>
+
+    <div class="section">
+        <h2>What is AI?</h2>
+        <p>AI is like a smart robot friend that learns from the information we give it, just like you learn from your teachers and books.</p>
+        <video controls>
+            <source src="lecture.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="section game-area">
+        <h2>Teach the AI!</h2>
+        <p>Drag the items below into the correct boxes. The AI is watching and will learn from you!</p>
+        
+        <div id="source-container">
+            <!-- Items will be injected here by JS -->
         </div>
-    </header>
 
-    <main class="container">
-        <section class="content-section intro-card">
-            <h2>Hello Future Genius! 🌟</h2>
-            <p class="context-text">
-                Welcome to <strong>EduYug</strong>! Today, you are going to be a teacher. 
-                We have a baby AI named <strong>Gemini</strong>. It doesn't know what animals are yet.
-                <br><br>
-                Can you teach it? If you teach it correctly, it will learn to do it all by itself!
-            </p>
-        </section>
-
-        <section class="content-section game-section">
-            <h3>🎮 Drag and Drop Game</h3>
-            <p>Drag the pictures into the correct box. Teach Gemini carefully!</p>
-            
-            <div class="game-board">
-                <div class="source-container" id="source-container">
-                    <!-- Images will be injected here by JS -->
-                </div>
-
-                <div class="drop-area">
-                    <div class="drop-box animal-box" id="box-animal" ondrop="drop(event)" ondragover="allowDrop(event)">
-                        <h4>🐾 Animals</h4>
-                    </div>
-                    <div class="drop-box object-box" id="box-object" ondrop="drop(event)" ondragover="allowDrop(event)">
-                        <h4>🛑 Not Animals</h4>
-                    </div>
-                </div>
+        <div class="drop-zone-container">
+            <div id="box-animal" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h3>Animals 🐾</h3>
             </div>
-            
-            <button id="teach-btn" class="action-btn" onclick="startAIRound()">Teach Gemini!</button>
-        </section>
-    </main>
+            <div id="box-object" class="drop-box" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <h3>Objects 🎸</h3>
+            </div>
+        </div>
 
-    <!-- Popup Modal -->
-    <div id="result-modal" class="modal hidden">
+        <button onclick="startAIRound()">Submit</button>
+    </div>
+
+    <div id="result-modal" class="hidden">
         <div class="modal-content">
             <h2 id="modal-title"></h2>
             <p id="modal-message"></p>
-            <p id="modal-explanation" class="explanation"></p>
-            <button class="action-btn" onclick="location.reload()">Play Again</button>
+            <p id="modal-explanation" style="font-style: italic; color: #555; margin-top: 15px; border-top: 1px solid #eee; padding-top: 15px;"></p>
+            <button onclick="location.reload()">Play Again</button>
         </div>
     </div>
 
